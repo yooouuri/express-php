@@ -17,8 +17,12 @@ require __DIR__ . '/vendor/autoload.php';
 
 $loop = Loop::get();
 
-$express = new Express($loop);
-$express->get('/', function () {
+$app = new Express($loop);
+$app->get('/', function () {
     return 'Hello World!';
+});
+
+$app->listen(3000, function (string $host, int $port) {
+    echo "Listening on $host:$port";
 });
 ```

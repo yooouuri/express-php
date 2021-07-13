@@ -4,34 +4,58 @@ namespace ExpressPHP;
 
 final class Response
 {
-    private \React\Http\Message\Response $response;
+    private int $status;
 
-    public function getResponse(): \React\Http\Message\Response
+    public function getStatus(): int
     {
-        return $this->response;
+        return $this->status;
     }
 
-    public function __construct()
-    {
-        $this->response = new \React\Http\Message\Response();
-    }
-
-    public function body(string $body): self
+    public function setStatus($status = 200): self
     {
         $self = clone $this;
-        $stream = $this->response->getBody();
-        $stream->write($body);
-
-        $this->response = $this->response->withBody($stream);
+        $self->status = $status;
 
         return $self;
     }
 
-    public function status($status = 200): self
-    {
-        $this->response->withStatus($status);
+    private string $body;
 
-        return clone $this;
+    public function getBody(): string
+    {
+        return $this->body;
+    }
+
+    public function setBody(string $body): self
+    {
+        $self = clone $this;
+        $self->body = $body;
+
+        return $self;
+    }
+
+    private $headers;
+
+    public function getHeaders()
+    {
+        return $this->headers;
+    }
+
+    public function setHeaders($headers): self
+    {
+        $self = clone $this;
+        $self->headers = $headers;
+
+        return $self;
+    }
+
+    public function __construct(int $status = 200,
+                                string $body = '',
+                                $headers = [ 'Content-Type' => 'text/html' ])
+    {
+        $this->status = $status;
+        $this->body = $body;
+        $this->headers = $headers;
     }
 
     public function json(mixed $content): self
@@ -40,6 +64,8 @@ final class Response
 
         $encoded = json_encode($content);
 
-        return $self->body($encoded);
+        return $self
+            ->setBody($encoded)
+            ->setHeaders([ 'Content-Type' => 'application/json' ]);
     }
 }
