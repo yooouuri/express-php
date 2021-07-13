@@ -1,0 +1,22 @@
+{
+    "name": "youri/express-php",
+    "authors": [
+        {
+            "name": "Youri van Mill",
+            "email": "yourivanmill@gmail.com"
+        }
+    ],
+    "require": {
+        "react/event-loop": "^1.2.0",
+        "react/http": "^1.4.0",
+        "react/socket": "^1.8.0",
+        "symfony/routing": "^5.3",
+        "nyholm/psr7": "^1.4",
+        "symfony/psr-http-message-bridge": "^2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "ExpressPHP\\": "src/"
+        }
+    }
+}
