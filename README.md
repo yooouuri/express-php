@@ -26,3 +26,19 @@ $app->listen(3000, function (string $host, int $port) {
     echo "Listening on $host:$port";
 });
 ```
+
+Return json.
+
+```php
+$app->get('/', function (Response $response) {
+    return $response->json([ 'hello' => 'world' ]);
+});
+```
+
+The following HTTP methods are available.
+
+* get
+* post
+* put
+* delete
+* patch
