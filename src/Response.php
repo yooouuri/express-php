@@ -34,14 +34,14 @@ final class Response
         return $self;
     }
 
-    private $headers;
+    private array $headers;
 
-    public function getHeaders()
+    public function getHeaders(): array
     {
         return $this->headers;
     }
 
-    public function setHeaders($headers): self
+    public function setHeaders(array $headers): self
     {
         $self = clone $this;
         $self->headers = $headers;
@@ -49,9 +49,17 @@ final class Response
         return $self;
     }
 
+    public function addHeader(string $key, string $value): self {
+        $self = clone $this;
+
+        $self->headers[$key] = $value;
+
+        return $self;
+    }
+
     public function __construct(int $status = 200,
                                 string $body = '',
-                                $headers = [ 'Content-Type' => 'text/html' ])
+                                array $headers = [ 'Content-Type' => 'text/html' ])
     {
         $this->status = $status;
         $this->body = $body;
@@ -66,6 +74,6 @@ final class Response
 
         return $self
             ->setBody($encoded)
-            ->setHeaders([ 'Content-Type' => 'application/json' ]);
+            ->addHeader('Content-Type', 'application/json');
     }
 }
