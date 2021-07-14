@@ -16,7 +16,7 @@ use React\EventLoop\LoopInterface;
  */
 final class Express
 {
-    const METHODS = [
+    private const METHODS = [
         'GET',
         'POST',
         'PUT',
