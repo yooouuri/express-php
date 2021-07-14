@@ -47,7 +47,7 @@ class Route
         $this->name = $name;
         $this->method = $method;
 
-        if (!is_callable($closure)) {
+        if (!$closure instanceof Closure) {
             throw new Exception('No callable given');
         }
 
